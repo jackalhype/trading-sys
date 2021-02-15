@@ -10,9 +10,17 @@ class Level:
     # determination end datetime, None
     end_dt: datetime
 
-    def __init__(self, chart: Chart, def_timeframe: Timeframe, start_dt: datetime, end_dt: datetime = None):
+    price: float
+
+    def __init__(self, chart: Chart,
+                 price: float,
+                 def_timeframe: Timeframe,
+                 start_dt: datetime,
+                 end_dt: datetime = None):
         self.chart = chart
+        self.price = price
         self.def_timeframe = def_timeframe
         self.start_dt = start_dt
         self.end_dt = end_dt
 
+    

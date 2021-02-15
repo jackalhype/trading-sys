@@ -9,6 +9,7 @@ class TrendBase:
 
     def __init__(self, chart: Chart, *args, **kwargs):
         self.chart = chart
+        self.calc_force()
 
     def calc_force(self) -> None:
         """
