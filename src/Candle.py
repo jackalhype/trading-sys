@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from Timeframe import Timeframe
 
 class Candle:
@@ -12,3 +11,4 @@ class Candle:
     timeframe: Timeframe
     utc_offset: float
 
+    
