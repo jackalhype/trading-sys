@@ -1,4 +1,4 @@
-import OrderStatus
+from .OrderStatus import OrderStatus
 
 class TerminalOrderBase:
     ticker: str

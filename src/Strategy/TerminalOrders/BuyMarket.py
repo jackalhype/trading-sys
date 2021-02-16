@@ -1,4 +1,4 @@
-import TerminalOrderBase
+from .TerminalOrderBase import TerminalOrderBase
 
 class BuyMarket(TerminalOrderBase):
     lots: int
