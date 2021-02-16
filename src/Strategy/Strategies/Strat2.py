@@ -1,13 +1,17 @@
 from src.Strategy.TerminalOrders.BuyMarket import BuyMarket
 from src.Strategy.TerminalOrders.SellMarket import SellMarket
 from src.Strategy.TerminalOrders.GeneralAPI import GeneralAPI
+from src.Indicators.MovingAverage import MovingAverage
+from src.Timeframe import Timeframe
 
 import time
+from datetime import datetime
 
 """
 # omg, there was so many vars in the 1st. And not even half finished.
 # let's make it simple.
 # we have entry points when it is trend. And exit points when trend ended.
+# we also have stop-losses
 """
 class Strat2:
     ticker: str
@@ -18,6 +22,7 @@ class Strat2:
     have_good_price_to_open_sell: bool
     bought: int = 0
     sold: int = 0
+    stop_loss_level: float
 
 
     def __init__(self, ticker: str):
@@ -54,7 +59,7 @@ class Strat2:
         delta = volume - (self.sold - new_sold)
         self.sold = new_sold
         self.bought += delta
-        BuyMarket(volume=volume).exec()
+        BuyMarket(ticker=self.ticker, volume=volume).exec()
 
 
     def sell(self, volume):
@@ -62,18 +67,18 @@ class Strat2:
         delta = volume - (self.bought - new_bought)
         self.bought = new_bought
         self.sold += delta
-        SellMarket(volume=volume).exec()
+        SellMarket(ticker=self.ticker, volume=volume).exec()
 
 
     def tryClose(self):
         if self.bought > 0:
-            if self.boolish_trend_may_ended():
+            if self.boolish_trend_may_ended:
                 self.sell(volume=self.bought)
             if self.is_stop_loss_level_achieved:
                 self.sell(volume=self.bought)
 
         if self.sold > 0:
-            if self.bearish_trend_may_ended():
+            if self.bearish_trend_may_ended:
                 self.buy(volume=self.sold)
             if self.is_stop_loss_level_achieved:
                 self.buy(volume=self.sold)
@@ -92,4 +97,19 @@ class Strat2:
         tup = GeneralAPI.get_current_price(ticker=self.ticker)
         res = (tup[0] + tup[1]) / 2.0
         return res
+
+    @property
+    def is_trend_boolish(self):
+        price = self.get_current_price()
+        short_ma = MovingAverage(ticker=self.ticker, timeframe=Timeframe.m15, period=8)
+        long_ma = MovingAverage(ticker=self.ticker, timeframe=Timeframe.m15, period=21)
+        now = datetime.now()
+        short_ma_val = short_ma.getVal(dt=now)
+        long_ma_val = long_ma.getVal(dt=now)
+        if price > short_ma_val and short_ma_val > long_ma_val:
+            """
+            TODO: see parent Timeframe
+            """
+            return True
+        return False
 
