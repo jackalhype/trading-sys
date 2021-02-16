@@ -8,6 +8,7 @@ pillow = "*"
 yfinance = "*"
 bs4 = "*"
 sqlalchemy = "*"
+mypy = "*"
 
 [dev-packages]
 

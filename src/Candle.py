@@ -1,5 +1,5 @@
 from datetime import datetime
-from Timeframe import Timeframe
+from src.Timeframe import Timeframe
 
 class Candle:
     open: float
@@ -10,5 +10,3 @@ class Candle:
     start: datetime
     timeframe: Timeframe
     utc_offset: float
-
-    

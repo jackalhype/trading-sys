@@ -1,4 +1,5 @@
-import Timeframe, Candle
+from src.Timeframe import Timeframe
+from src.Candle import Candle
 from typing import List
 
 class Chart:
@@ -12,5 +13,4 @@ class Chart:
 
     def appendCandle(self, candle: Candle):
         self.candles.append(candle)
-
 

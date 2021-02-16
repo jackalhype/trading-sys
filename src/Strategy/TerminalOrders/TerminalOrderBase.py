@@ -5,6 +5,9 @@ class TerminalOrderBase:
     status: OrderStatus
     order_id: str
 
+    def __init__(self, ticker: str):
+        self.ticker = ticker
+
     def exec(self) -> str:
         """
         TODO:
