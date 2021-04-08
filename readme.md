@@ -7,4 +7,4 @@ Each time a coder says "I'm good in algos", ask him to write a Trading System. I
 - Why did you write a trading system?
 - I just tired to do the handjob.
 
-To be continued.
+To be continued. It will blow your mind.
